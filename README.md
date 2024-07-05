@@ -8,17 +8,12 @@ A comprehensive SLR (Simple LR) parser implementation using Django. This project
 
 ## Table of Contents
 
-- [Demo](#demo)
 - [Features](#features)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Contributing](#contributing)
 - [License](#license)
 - [Contact](#contact)
-
-## Demo
-
-Check out a live demo of the application [here](#).
 
 ## Features
 
@@ -40,7 +35,7 @@ Check out a live demo of the application [here](#).
 
 1. Clone the repository
     ```bash
-    git clone https://github.com/yourusername/SLR-Parser-Using-Django.git
+    git clone https://github.com/Sachin24063/SLR-Parser-Using-Django.git
     cd SLR-Parser-Using-Django
     ```
 
@@ -53,11 +48,6 @@ Check out a live demo of the application [here](#).
 3. Install dependencies
     ```bash
     pip install -r requirements.txt
-    ```
-
-4. Apply migrations
-    ```bash
-    python manage.py migrate
     ```
 
 5. Run the development server
@@ -75,12 +65,6 @@ Check out a live demo of the application [here](#).
 2. Input your grammar rules and terminals.
 3. Click "Generate" to create the SLR parsing table.
 4. Use the visualization tools to see the parsing process.
-
-### Debugging
-
-1. Navigate to the "Debug" section.
-2. Input the string you want to parse.
-3. Step through the parsing process to understand how the parser works.
 
 ## Contributing
 
@@ -101,9 +85,8 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 For any inquiries, feel free to reach out:
 
-- **Email**: your.email@example.com
-- **GitHub**: [yourusername](https://github.com/yourusername)
-- **LinkedIn**: [Your Name](https://linkedin.com/in/yourprofile)
+- **GitHub**: [yourusername](https://github.com/Sachin24063)
+- **LinkedIn**: [Your Name](https://www.linkedin.com/in/sachin-kumar-b418391ba/)
 
 ---
 
