@@ -85,8 +85,8 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 For any inquiries, feel free to reach out:
 
-- **GitHub**: [yourusername](https://github.com/Sachin24063)
-- **LinkedIn**: [Your Name](https://www.linkedin.com/in/sachin-kumar-b418391ba/)
+- **GitHub**: [Sachin24063](https://github.com/Sachin24063)
+- **LinkedIn**: [Sachin Kumar](https://www.linkedin.com/in/sachin-kumar-b418391ba/)
 
 ---
 
