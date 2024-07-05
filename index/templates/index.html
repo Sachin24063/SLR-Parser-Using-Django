@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>SLR Parser</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="css/styles.css" rel="stylesheet">
+        
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Mooli&display=swap" rel="stylesheet">
+        
+        {% load static %}
+        <link href='{% static "styles.css" %}' rel="stylesheet">    
+    </head>
+    <body>
+        <div id = "container">
+            <div id = "heading">
+                SLR Parser
+            </div>
+            <div id = "input-form">
+                <div id = "instruction-div">
+                    <p>Instructions:</p>
+                    <p>1. Maintain grammer format as per the sample grammer</p>
+                    <p>2. Add space between tokens (Example: S -> ab is wrong, S -> a b is true)</p>
+                    <p>3. All uppercase characters will be considered as a non-terminals</p>
+                    <p>4. All lowercase characters will be considered as a terminals</p>
+                </div>
+                <div id = "form-outer-div">
+                    <form method = "post" action="{% url 'index' %}">
+                        <div id = "form-div">
+                            {% csrf_token %}
+                            <label for="" id = "rule-label">Grammer Rules</label>
+                            <textarea rows="10" name = "grammer">{{grammer}}</textarea>
+                            <div id = "submit-btn-div">
+                                <div class = "demo-url" id = "copy-1">
+                                    Copy Demo Grammer - 1
+                                </div>
+                                <div class = "demo-url" id = "copy-2">
+                                    Copy Demo Grammer - 2
+                                </div>
+                                <div class = "demo-url" id = "copy-error">
+                                    Copy Demo Grammer (With Error)
+                                </div>
+                                <button type="submit" name = "submit" class = "submit-btn">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            {% if data %}
+                <h1 class = "sub-header">Grammer Details</h1>
+                <div id = "details">
+                    <div id = "details-left">
+                        <p>Augmented Grammer</p>
+                        {{data.augmented_grammer|linebreaksbr}}
+                    </div>
+                    <div id = "details-right">
+                        <table>
+                            <tr>
+                                <td>Terminals</td>
+                                <td>
+                                    {% for term in data.terminals %}
+                                        <span class = "term box">
+                                            {{term}}
+                                        </span>    
+                                    {% endfor %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Non Terminals</td>
+                                <td>
+                                    {% for term in data.non_terminals %}
+                                        <span class = "term box">
+                                            {{term}}
+                                        </span>    
+                                    {% endfor %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Symbols</td>
+                                <td>
+                                    {% for term in data.symbols %}
+                                        <span class = "term box">
+                                            {{term}}
+                                        </span>    
+                                    {% endfor %}
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <h1 class = "sub-header">First & Follow</h1>
+                <div id = "first-follow">
+                    <div id = "ff-left">
+                        <p>First Table</p>
+                        <table>
+                            <thead>
+                                <th>Symbol</th>
+                                <th>First</th>
+                            </thead>
+                            <tbody>
+                                {% for each in data.first %}
+                                    <tr>
+                                        <td>{{each.symbol}}</td>
+                                        <td>
+                                            {% for first in each.first %}
+                                                <span class = "box">
+                                                    {{first}}
+                                                </span> 
+                                            {% endfor %}
+                                        </td>
+                                    {% endfor %}
+                                    </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id = "ff-right">
+                        <p>Follow Table</p>
+                        <table>
+                            <thead>
+                                <th>Symbol</th>
+                                <th>Follow</th>
+                            </thead>
+                            <tbody>
+                                {% for each in data.follow %}
+                                    <tr>
+                                        <td>{{each.symbol}}</td>
+                                        <td>
+                                            {% for follow in each.follow %}
+                                                <span class = "box">
+                                                    {{follow}}
+                                                </span> 
+                                            {% endfor %}
+                                        </td>
+                                    {% endfor %}
+                                    </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <h1 class = "sub-header">Items</h1>
+                <div id = "items">
+                    {% for item in data.items %}
+                        <div class = "item">
+                            <div class = "item-heading">
+                                {{item.item}}
+                            </div>
+                            <div class = "item-row-div">
+                                {% for row in item.list %}
+                                    <p class = "item-row">{{row}}</p>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+
+                {% if data.error %}
+                <h1 class = "sub-header">Error Message</h1>
+                    <div id = "error-div">
+                        <div id = "error-text">
+                            {{data.message}}
+                        </div>
+                    </div>
+                
+                {% else %}
+                    <h1 class = "sub-header">Parsing Table</h1>
+                    <div id = "parsing-table" class = "ttable">
+                        <table>
+                            <thead>
+                                {% for heading in data.parsing_table_heading %}
+                                    <th>{{heading}}</th>
+                                {% endfor %}
+                            </thead>
+                            <tbody>
+                                {% for row in data.parsing_table_row %}
+                                    <tr>
+                                        {% for col in row %}
+                                            <td>{{col}}</td>
+                                        {% endfor %}
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h1 class = "sub-header">String Stack Track</h1>
+                    <form method="post" action="{% url 'check_string' %}">
+                        {% csrf_token %}
+                        <input type="text" name="string" value = "{{string}}" id = "string">
+                        <input type="submit" value="Get Stack Track" class = "submit-btn">
+                    </form>
+                    {% if track_stack_headers %}
+                        <div id = "string-track" class = "ttable">
+                            <table>
+                                <thead>
+                                    {% for heading in track_stack_headers %}
+                                        <th>{{heading}}</th>
+                                    {% endfor %}
+                                </thead>
+                                <tbody>
+                                    {% for row in track_stack_rows %}
+                                        <tr>
+                                            {% for col in row %}
+                                                <td>{{col}}</td>
+                                            {% endfor %}
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% endif %}
+                {% endif %}
+            </div>
+            {% endif %}
+            
+
+    <script src = {% static "script.js" %}>
+    </script>
+    </body>
+</html>
